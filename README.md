@@ -1,2 +1,2 @@
 # conjur-utils-bash
-Conjur utilities only using bash
+Conjur utilities using only bash
