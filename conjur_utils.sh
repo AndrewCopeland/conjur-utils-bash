@@ -24,7 +24,7 @@ function conjur_configure_authn_iam {
 	policy_branch="root"
 	mkdir -p "./tmp"
 	file_name="./tmp/authn-iam-$service_id.yml"
-	sed "s/\<service-id\>/$service_id/g" "authenticators/authn-iam.yml" > $file_name
+	sed "s/<service-id>/$service_id/g" "authenticators/authn-iam.yml" > $file_name
 	conjur_append_policy "${policy_branch}" "${file_name}"
 }
 
