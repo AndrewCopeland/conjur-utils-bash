@@ -1,0 +1,6 @@
+- !host
+  id: <app name>
+  annotations:
+    authn-k8s/namespace: <application namespace>
+    authn-k8s/service-account: <application service account>
+    authn-k8s/authentication-container-name: authenticator

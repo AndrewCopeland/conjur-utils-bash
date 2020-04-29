@@ -1,0 +1,18 @@
+# root.yml
+- !policy
+  id: conjur/authn-k8s/<service id>
+  body:
+  - !variable kubernetes/service-account-token
+  - !variable kubernetes/ca-cert
+  - !variable kubernetes/api-url
+  - !variable ca/key
+  - !variable ca/cert
+
+  - !webservice
+  - !group apps
+  - !permit
+    role: !group apps
+    resource: !webservice
+	privileges: [ read, authenticate ]
+	
+- !host conjur/authn-k8s/<service id>/apps/
