@@ -28,6 +28,15 @@ function conjur_health {
 	curl $verbose --fail -s -k "${CONJUR_APPLIANCE_URL}/health"
 }
 
+function conjur_enable_authn {
+	$util_defaults
+	serviceID=$1
+	header=$(conjur_authenticate)
+	response=$(curl -H "$header" -X PATCH -d "enabled=true" -s -k "${CONJUR_APPLIANCE_URL}/${serviceID}/${CONJUR_ACCOUNT}")
+	echo "$response"
+	conjur_info
+}
+
 function conjur_configure_authn_iam {
 	$util_defaults
 	service_id=$1
