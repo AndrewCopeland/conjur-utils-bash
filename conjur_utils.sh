@@ -37,16 +37,6 @@ function conjur_enable_authn {
 	conjur_info
 }
 
-function conjur_configure_authn_iam {
-	$util_defaults
-	service_id=$1
-	policy_branch="root"
-	mkdir -p "./tmp"
-	file_name="./tmp/authn-iam-$service_id.yml"
-	sed "s/<service-id>/$service_id/g" "authenticators/authn-iam.yml" > $file_name
-	conjur_append_policy "${policy_branch}" "${file_name}"
-}
-
 function conjur_append_policy {
 	$util_defaults
 	policy_branch=$1
