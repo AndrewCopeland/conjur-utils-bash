@@ -18,6 +18,16 @@ function conjur_authenticate {
 	echo "$header"
 }
 
+function conjur_info {
+	$util_defaults
+	curl $verbose --fail -s -k "${CONJUR_APPLIANCE_URL}/info"
+}
+
+function conjur_health {
+	$util_defaults
+	curl $verbose --fail -s -k "${CONJUR_APPLIANCE_URL}/health"
+}
+
 function conjur_configure_authn_iam {
 	$util_defaults
 	service_id=$1
@@ -34,6 +44,15 @@ function conjur_append_policy {
 	policy_name=$2
 	header=$(conjur_authenticate)
 	response=$(curl -H "$header" -X POST -d "$(< $policy_name)" -s -k $CONJUR_APPLIANCE_URL/policies/$CONJUR_ACCOUNT/policy/$policy_branch)
+	echo "$response"
+}
+
+function conjur_update_policy {
+	$util_defaults
+	policy_branch=$1
+	policy_name=$2
+	header=$(conjur_authenticate)
+	response=$(curl -H "$header" -X PATCH -d "$(< $policy_name)" -s -k $CONJUR_APPLIANCE_URL/policies/$CONJUR_ACCOUNT/policy/$policy_branch)
 	echo "$response"
 }
 
