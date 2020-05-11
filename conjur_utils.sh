@@ -37,6 +37,13 @@ function conjur_enable_authn {
 	conjur_info
 }
 
+function conjur_audit {
+	$util_defaults
+	header=$(conjur_authenticate)
+	response=$(curl -H "$header" -s -k "${CONJUR_APPLIANCE_URL}/audit")
+	echo "$response"
+}
+
 function conjur_append_policy {
 	$util_defaults
 	policy_branch=$1
